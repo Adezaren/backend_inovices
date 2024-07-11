@@ -36,7 +36,8 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
     List<PersonEntity> findByIdentificationNumber(String identificationNumber);
 
     @Query("SELECT new cz.itnetwork.dto.PersonStatisticsDTO(p.id, p.name, COALESCE(SUM(i.price), 0)) " +
-            "FROM person p JOIN invoice i ON p.id = i.seller " +
+            "FROM person p LEFT JOIN invoice i ON p.id = i.seller " +
+            "WHERE p.hidden =  0 " +
             "GROUP BY p.id")
     List<PersonStatisticsDTO> getPersonStatistics();
                  

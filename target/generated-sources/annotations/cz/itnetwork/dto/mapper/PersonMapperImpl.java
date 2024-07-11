@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.39.0.v20240620-1855, environment: Java 17.0.11 (Eclipse Adoptium)"
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
 public class PersonMapperImpl implements PersonMapper {
@@ -20,22 +20,20 @@ public class PersonMapperImpl implements PersonMapper {
 
         PersonEntity personEntity = new PersonEntity();
 
+        personEntity.setId( source.getId() );
+        personEntity.setName( source.getName() );
+        personEntity.setIdentificationNumber( source.getIdentificationNumber() );
+        personEntity.setTaxNumber( source.getTaxNumber() );
         personEntity.setAccountNumber( source.getAccountNumber() );
         personEntity.setBankCode( source.getBankCode() );
+        personEntity.setIban( source.getIban() );
+        personEntity.setTelephone( source.getTelephone() );
+        personEntity.setMail( source.getMail() );
+        personEntity.setStreet( source.getStreet() );
+        personEntity.setZip( source.getZip() );
         personEntity.setCity( source.getCity() );
         personEntity.setCountry( source.getCountry() );
-        personEntity.setIban( source.getIban() );
-        if ( source.getId() != null ) {
-            personEntity.setId( source.getId() );
-        }
-        personEntity.setIdentificationNumber( source.getIdentificationNumber() );
-        personEntity.setMail( source.getMail() );
-        personEntity.setName( source.getName() );
         personEntity.setNote( source.getNote() );
-        personEntity.setStreet( source.getStreet() );
-        personEntity.setTaxNumber( source.getTaxNumber() );
-        personEntity.setTelephone( source.getTelephone() );
-        personEntity.setZip( source.getZip() );
 
         return personEntity;
     }
@@ -48,20 +46,20 @@ public class PersonMapperImpl implements PersonMapper {
 
         PersonDTO personDTO = new PersonDTO();
 
+        personDTO.setId( source.getId() );
+        personDTO.setName( source.getName() );
+        personDTO.setIdentificationNumber( source.getIdentificationNumber() );
+        personDTO.setTaxNumber( source.getTaxNumber() );
         personDTO.setAccountNumber( source.getAccountNumber() );
         personDTO.setBankCode( source.getBankCode() );
+        personDTO.setIban( source.getIban() );
+        personDTO.setTelephone( source.getTelephone() );
+        personDTO.setMail( source.getMail() );
+        personDTO.setStreet( source.getStreet() );
+        personDTO.setZip( source.getZip() );
         personDTO.setCity( source.getCity() );
         personDTO.setCountry( source.getCountry() );
-        personDTO.setIban( source.getIban() );
-        personDTO.setId( source.getId() );
-        personDTO.setIdentificationNumber( source.getIdentificationNumber() );
-        personDTO.setMail( source.getMail() );
-        personDTO.setName( source.getName() );
         personDTO.setNote( source.getNote() );
-        personDTO.setStreet( source.getStreet() );
-        personDTO.setTaxNumber( source.getTaxNumber() );
-        personDTO.setTelephone( source.getTelephone() );
-        personDTO.setZip( source.getZip() );
 
         return personDTO;
     }

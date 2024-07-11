@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.39.0.v20240620-1855, environment: Java 17.0.11 (Eclipse Adoptium)"
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
 public class InvoiceMapperImpl implements InvoiceMapper {
@@ -22,18 +22,18 @@ public class InvoiceMapperImpl implements InvoiceMapper {
 
         InvoiceEntity invoiceEntity = new InvoiceEntity();
 
-        invoiceEntity.setBuyer( personDTOToPersonEntity( source.getBuyer() ) );
-        invoiceEntity.setDueDate( source.getDueDate() );
         if ( source.getId() != null ) {
             invoiceEntity.setId( source.getId() );
         }
         invoiceEntity.setInvoiceNumber( source.getInvoiceNumber() );
-        invoiceEntity.setIssued( source.getIssued() );
-        invoiceEntity.setNote( source.getNote() );
-        invoiceEntity.setPrice( source.getPrice() );
-        invoiceEntity.setProduct( source.getProduct() );
         invoiceEntity.setSeller( personDTOToPersonEntity( source.getSeller() ) );
+        invoiceEntity.setBuyer( personDTOToPersonEntity( source.getBuyer() ) );
+        invoiceEntity.setIssued( source.getIssued() );
+        invoiceEntity.setDueDate( source.getDueDate() );
+        invoiceEntity.setProduct( source.getProduct() );
+        invoiceEntity.setPrice( source.getPrice() );
         invoiceEntity.setVat( source.getVat() );
+        invoiceEntity.setNote( source.getNote() );
 
         return invoiceEntity;
     }
@@ -46,16 +46,16 @@ public class InvoiceMapperImpl implements InvoiceMapper {
 
         InvoiceDTO invoiceDTO = new InvoiceDTO();
 
-        invoiceDTO.setBuyer( personEntityToPersonDTO( source.getBuyer() ) );
-        invoiceDTO.setDueDate( source.getDueDate() );
         invoiceDTO.setId( source.getId() );
+        invoiceDTO.setSeller( personEntityToPersonDTO( source.getSeller() ) );
+        invoiceDTO.setBuyer( personEntityToPersonDTO( source.getBuyer() ) );
         invoiceDTO.setInvoiceNumber( source.getInvoiceNumber() );
         invoiceDTO.setIssued( source.getIssued() );
-        invoiceDTO.setNote( source.getNote() );
-        invoiceDTO.setPrice( source.getPrice() );
+        invoiceDTO.setDueDate( source.getDueDate() );
         invoiceDTO.setProduct( source.getProduct() );
-        invoiceDTO.setSeller( personEntityToPersonDTO( source.getSeller() ) );
+        invoiceDTO.setPrice( source.getPrice() );
         invoiceDTO.setVat( source.getVat() );
+        invoiceDTO.setNote( source.getNote() );
 
         return invoiceDTO;
     }
@@ -66,13 +66,13 @@ public class InvoiceMapperImpl implements InvoiceMapper {
             return target;
         }
 
-        target.setDueDate( source.getDueDate() );
         target.setInvoiceNumber( source.getInvoiceNumber() );
         target.setIssued( source.getIssued() );
-        target.setNote( source.getNote() );
-        target.setPrice( source.getPrice() );
+        target.setDueDate( source.getDueDate() );
         target.setProduct( source.getProduct() );
+        target.setPrice( source.getPrice() );
         target.setVat( source.getVat() );
+        target.setNote( source.getNote() );
 
         return target;
     }
@@ -84,22 +84,20 @@ public class InvoiceMapperImpl implements InvoiceMapper {
 
         PersonEntity personEntity = new PersonEntity();
 
+        personEntity.setId( personDTO.getId() );
+        personEntity.setName( personDTO.getName() );
+        personEntity.setIdentificationNumber( personDTO.getIdentificationNumber() );
+        personEntity.setTaxNumber( personDTO.getTaxNumber() );
         personEntity.setAccountNumber( personDTO.getAccountNumber() );
         personEntity.setBankCode( personDTO.getBankCode() );
+        personEntity.setIban( personDTO.getIban() );
+        personEntity.setTelephone( personDTO.getTelephone() );
+        personEntity.setMail( personDTO.getMail() );
+        personEntity.setStreet( personDTO.getStreet() );
+        personEntity.setZip( personDTO.getZip() );
         personEntity.setCity( personDTO.getCity() );
         personEntity.setCountry( personDTO.getCountry() );
-        personEntity.setIban( personDTO.getIban() );
-        if ( personDTO.getId() != null ) {
-            personEntity.setId( personDTO.getId() );
-        }
-        personEntity.setIdentificationNumber( personDTO.getIdentificationNumber() );
-        personEntity.setMail( personDTO.getMail() );
-        personEntity.setName( personDTO.getName() );
         personEntity.setNote( personDTO.getNote() );
-        personEntity.setStreet( personDTO.getStreet() );
-        personEntity.setTaxNumber( personDTO.getTaxNumber() );
-        personEntity.setTelephone( personDTO.getTelephone() );
-        personEntity.setZip( personDTO.getZip() );
 
         return personEntity;
     }
@@ -111,20 +109,20 @@ public class InvoiceMapperImpl implements InvoiceMapper {
 
         PersonDTO personDTO = new PersonDTO();
 
+        personDTO.setId( personEntity.getId() );
+        personDTO.setName( personEntity.getName() );
+        personDTO.setIdentificationNumber( personEntity.getIdentificationNumber() );
+        personDTO.setTaxNumber( personEntity.getTaxNumber() );
         personDTO.setAccountNumber( personEntity.getAccountNumber() );
         personDTO.setBankCode( personEntity.getBankCode() );
+        personDTO.setIban( personEntity.getIban() );
+        personDTO.setTelephone( personEntity.getTelephone() );
+        personDTO.setMail( personEntity.getMail() );
+        personDTO.setStreet( personEntity.getStreet() );
+        personDTO.setZip( personEntity.getZip() );
         personDTO.setCity( personEntity.getCity() );
         personDTO.setCountry( personEntity.getCountry() );
-        personDTO.setIban( personEntity.getIban() );
-        personDTO.setId( personEntity.getId() );
-        personDTO.setIdentificationNumber( personEntity.getIdentificationNumber() );
-        personDTO.setMail( personEntity.getMail() );
-        personDTO.setName( personEntity.getName() );
         personDTO.setNote( personEntity.getNote() );
-        personDTO.setStreet( personEntity.getStreet() );
-        personDTO.setTaxNumber( personEntity.getTaxNumber() );
-        personDTO.setTelephone( personEntity.getTelephone() );
-        personDTO.setZip( personEntity.getZip() );
 
         return personDTO;
     }

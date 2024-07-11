@@ -102,7 +102,6 @@ public class PersonServiceImpl implements PersonService {
 
         PersonDTO newEntity = addPerson(personDTO);
 
-
         return newEntity;
     }
 

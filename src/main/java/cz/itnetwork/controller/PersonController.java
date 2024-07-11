@@ -81,7 +81,7 @@ public class PersonController {
      * return personService.getPersonById(personId);
      * }
      */
-    @PutMapping("/persons/edit/{personId}")
+    @PutMapping("/persons/{personId}")
     public PersonDTO editPersonById(@RequestBody PersonDTO personDTO, @PathVariable long personId) {
         return personService.editPerson(personDTO, personId);
     }
