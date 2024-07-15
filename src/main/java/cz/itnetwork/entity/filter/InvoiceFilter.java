@@ -9,7 +9,7 @@ public class InvoiceFilter {
     private String product;
     private Long minPrice;
     private Long maxPrice;
-    private int limit = 15;
+    private int limit = 50;
 
 
 }

@@ -42,32 +42,60 @@ public class PersonController {
     private PersonMapper personMapper;
 
 
+    /**
+     * Přidání osoby
+     * @param personDTO
+     * @return
+     */
     @PostMapping("/persons")
     public PersonDTO addPerson(@RequestBody PersonDTO personDTO) {
 
         return personService.addPerson(personDTO);
     }
 
+    /**
+     * Vypsání detailu všech osoby
+     * @return
+     */
     @GetMapping("/persons")
     public List<PersonDTO> getPersons() {
         return personService.getAll();
     }
 
+    /**
+     * smazání osoby
+     * @param personId
+     */
     @DeleteMapping("/persons/{personId}")
     public void deletePerson(@PathVariable Long personId) {
         personService.removePerson(personId);
     }
 
+    /**
+     * Vypsání detailu osoby
+     * @param personId
+     * @return
+     */
     @GetMapping("/persons/{personId}")
     public PersonDTO getPerson(@PathVariable Long personId) {
         return personService.getPersonById(personId);
     }
 
+    /**
+     * vypsání vystavených faktur dle identifikačního čísla
+     * @param identificationNumber
+     * @return
+     */
     @GetMapping("/identification/{identificationNumber}/sales")
     public List<InvoiceDTO> getInvoicesBySeller(@PathVariable String identificationNumber) {
         return personService.getInvoicesBySeller(identificationNumber);
     }
 
+    /**
+     * vypsání obdžených faktur dle identifikačního čísla
+     * @param identificationNumber
+     * @return
+     */
     @GetMapping("/identification/{identificationNumber}/purchases")
     public List<InvoiceDTO> getInvoicesByBuyer(@PathVariable String identificationNumber) {
         return personService.getInvoicesByBuyer(identificationNumber);
@@ -86,6 +114,10 @@ public class PersonController {
         return personService.editPerson(personDTO, personId);
     }
 
+    /**
+     * vypsání statistik osob: jméno osoby + celková suma vystavených faktur
+     * @return
+     */
     @GetMapping("/persons/statistics")
     public List<PersonStatisticsDTO> getPersonStatistics(){
         return personService.getPersonStatistics();

@@ -8,8 +8,6 @@ import cz.itnetwork.entity.filter.InvoiceFilter;
 import cz.itnetwork.entity.repository.InvoiceRepository;
 import cz.itnetwork.entity.repository.PersonRepository;
 import cz.itnetwork.entity.repository.specification.InvoiceSpecification;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -30,7 +28,11 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Autowired
     private PersonRepository personRepository;
 
-
+    /**
+     * přidání faktury
+     * @param invoiceDTO
+     * @return
+     */
     public InvoiceDTO addInvoice(InvoiceDTO invoiceDTO) {
         InvoiceEntity entity = invoiceMapper.toEntity(invoiceDTO);
         entity.setBuyer(personRepository.getReferenceById(invoiceDTO.getBuyer().getId()));
@@ -40,6 +42,11 @@ public class InvoiceServiceImpl implements InvoiceService {
         return invoiceMapper.toDTO(entity);
     }
 
+    /**
+     * výpis všech faktur
+     * @param invoiceFilter
+     * @return
+     */
     @Override
     public List<InvoiceDTO> getAll(InvoiceFilter invoiceFilter) {
         InvoiceSpecification invoiceSpecification = new InvoiceSpecification(invoiceFilter);
@@ -50,12 +57,21 @@ public class InvoiceServiceImpl implements InvoiceService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * vypsání detalu faktury
+     * @param id
+     * @return
+     */
     @Override
     public InvoiceDTO getInvoiceById(long id) {
         InvoiceEntity invoiceEntity = fetchInvoiceById(id);
         return invoiceMapper.toDTO(invoiceEntity);
     }
 
+    /**
+     * smazání faktury
+     * @param invoiceId
+     */
     @Override
     public void deleteInvoice(long invoiceId){
         try {
@@ -68,6 +84,12 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
     }
 
+    /**
+     * úprava faktury: přepsání existující faktury
+     * @param invoiceDTO
+     * @param invoiceId
+     * @return
+     */
     @Override
     public InvoiceDTO editInvoice(InvoiceDTO invoiceDTO, long invoiceId){
 
@@ -83,6 +105,10 @@ public class InvoiceServiceImpl implements InvoiceService {
         return invoiceMapper.toDTO(saved);
     }
 
+    /**
+     * vypsání statistik faktur
+     * @return
+     */
     @Override
     public InvoiceStatisticsDTO getInvoiceStatistics(){
 
@@ -91,18 +117,20 @@ public class InvoiceServiceImpl implements InvoiceService {
             statisticsDTO.setCurrentYearSum(invoiceRepository.getCurrentYearSum());
             statisticsDTO.setAllTimeSum(invoiceRepository.getAllTimeSum());
 
-        return statisticsDTO;
+            return statisticsDTO;
     }
 
 
+    // region PRIVATE
 
+    /**
+     * pomocná funkce k vyheldání faktury dle ID
+     * @param id
+     * @return
+     */
     private InvoiceEntity fetchInvoiceById(long id) {
         return invoiceRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Invoice with id" + id + "was't found"));
     }
-
-
-
-
-
+    // endregion
 }

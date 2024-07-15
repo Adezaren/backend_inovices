@@ -25,7 +25,6 @@ import cz.itnetwork.dto.PersonStatisticsDTO;
 import cz.itnetwork.entity.PersonEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -35,8 +34,12 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
 
     List<PersonEntity> findByIdentificationNumber(String identificationNumber);
 
+    /**
+     * Celková suma fkatur vystavených danou osobou
+     * @return
+     */
     @Query("SELECT new cz.itnetwork.dto.PersonStatisticsDTO(p.id, p.name, COALESCE(SUM(i.price), 0)) " +
-            "FROM person p LEFT JOIN invoice i ON p.id = i.seller " +
+            "FROM person p LEFT JOIN invoice i ON p.id = i.seller.id " +
             "WHERE p.hidden =  0 " +
             "GROUP BY p.id")
     List<PersonStatisticsDTO> getPersonStatistics();

@@ -20,24 +20,39 @@ public class InvoiceSpecification implements Specification<InvoiceEntity> {
     public Predicate toPredicate(Root<InvoiceEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
         List<Predicate> predicates = new ArrayList<>();
 
+        /**
+         * filtr: faktury rovno a větší od této ceny
+         */
         if (filter.getMinPrice() != null) {
             predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(InvoiceEntity_.PRICE), filter.getMinPrice()));
         }
 
+        /**
+         * filtr: faktury rovno a nižší od této ceny
+         */
         if (filter.getMaxPrice() != null) {
             predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(InvoiceEntity_.PRICE), filter.getMaxPrice()));
         }
 
+        /**
+         * filtr: faktury dle osoby kupující
+         */
         if (filter.getBuyerId() != null) {
             Join<PersonEntity, InvoiceEntity> buyerJoin = root.join(InvoiceEntity_.BUYER);
             predicates.add(criteriaBuilder.equal(buyerJoin.get(PersonEntity_.ID), filter.getBuyerId()));
         }
 
+        /**
+         * filtr: faktury dle osoby prodávající
+         */
         if (filter.getSellerId() != null) {
             Join<PersonEntity, InvoiceEntity> sellerJoin = root.join(InvoiceEntity_.SELLER);
             predicates.add(criteriaBuilder.equal(sellerJoin.get(PersonEntity_.ID), filter.getSellerId()));
         }
 
+        /**
+         * filtr: faktury dle produktu (String)
+         */
         if (filter.getProduct() != null){
             predicates.add(criteriaBuilder.equal(root.get(InvoiceEntity_.PRODUCT), filter.getProduct()));
         }

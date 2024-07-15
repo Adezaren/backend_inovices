@@ -1,12 +1,10 @@
 package cz.itnetwork.entity;
 
-import cz.itnetwork.dto.PersonDTO;
+
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.text.DateFormat;
 import java.time.LocalDate;
 
 @Entity(name = "invoice")

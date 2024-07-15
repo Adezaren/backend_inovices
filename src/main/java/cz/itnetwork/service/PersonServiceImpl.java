@@ -60,6 +60,11 @@ public class PersonServiceImpl implements PersonService {
     private InvoiceRepository invoiceRepository;
 
 
+    /**
+     * přidat osobu
+     * @param personDTO Person to create
+     * @return
+     */
     public PersonDTO addPerson(PersonDTO personDTO) {
         PersonEntity entity = personMapper.toEntity(personDTO);
         entity = personRepository.save(entity);
@@ -67,6 +72,10 @@ public class PersonServiceImpl implements PersonService {
         return personMapper.toDTO(entity);
     }
 
+    /**
+     * smazat osobu: skryje osobu
+     * @param personId Person to delete
+     */
     @Override
     public void removePerson(long personId) {
         try {
@@ -79,6 +88,10 @@ public class PersonServiceImpl implements PersonService {
         }
     }
 
+    /**
+     * vypsat všechny osoby
+     * @return
+     */
     @Override
     public List<PersonDTO> getAll() {
         return personRepository.findByHidden(false)
@@ -87,6 +100,11 @@ public class PersonServiceImpl implements PersonService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * vyspat detail osoby dle ID
+     * @param id
+     * @return
+     */
     @Override
     public PersonDTO getPersonById(long id) {
         PersonEntity personEntity = fetchPersonById(id);
@@ -94,17 +112,29 @@ public class PersonServiceImpl implements PersonService {
         return personMapper.toDTO(personEntity);
     }
 
+    /**
+     * úprava osoby: smaže existující a založí osobu novou
+     * @param personDTO
+     * @param personId
+     * @return
+     */
     @Override
     public PersonDTO editPerson(PersonDTO personDTO, long personId) {
         PersonEntity entity = fetchPersonById(personId);
         entity.setHidden(true);
         personRepository.save(entity);
 
+        personDTO.setId(null);
         PersonDTO newEntity = addPerson(personDTO);
 
         return newEntity;
     }
 
+    /**
+     * vypíše vystavené faktury danou osobou
+     * @param identificationNumber
+     * @return
+     */
     @Override
     public List<InvoiceDTO> getInvoicesBySeller(String identificationNumber) {
 
@@ -116,6 +146,11 @@ public class PersonServiceImpl implements PersonService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * vypíše přijaté faktury danou osobou
+     * @param identificationNumber
+     * @return
+     */
     @Override
     public List<InvoiceDTO> getInvoicesByBuyer(String identificationNumber) {
         return personRepository.findByIdentificationNumber(identificationNumber)
@@ -126,6 +161,10 @@ public class PersonServiceImpl implements PersonService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * vypíše statistiku osob
+     * @return
+     */
     @Override
     public List<PersonStatisticsDTO> getPersonStatistics() {
         return personRepository.getPersonStatistics();

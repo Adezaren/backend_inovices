@@ -2,13 +2,10 @@ package cz.itnetwork.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import cz.itnetwork.entity.PersonEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
 
-import java.text.DateFormat;
 import java.time.LocalDate;
 
 @Data
